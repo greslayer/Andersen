@@ -15,7 +15,7 @@ class MyCollectionImplTest {
 
     @BeforeEach
     public void init(){
-        linkedList = new MyCollectionImpl<String>();
+        linkedList = new MyCollectionImpl<>();
         for (int i=0;i<10;i++){
             linkedList.add(testString+i);
         }
@@ -57,6 +57,10 @@ class MyCollectionImplTest {
     @Test
     public void removeException(){
         assertThrows(NoSuchElementException.class,()->linkedList.remove(testString));
+    }
+    @Test
+    public void removeTop(){
+        assertDoesNotThrow(()->linkedList.remove(testString+9));
     }
 
 }

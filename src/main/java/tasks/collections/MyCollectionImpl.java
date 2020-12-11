@@ -77,8 +77,9 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
         if (next!=null){
             next.setPrevious(previous);
         }
-        previous.setNext(next);
-
+        if (previous!=null) {
+            previous.setNext(next);
+        }
 
     }
 
