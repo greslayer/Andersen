@@ -1,4 +1,4 @@
-package multithreading;
+package tasks.multithreading;
 
 public class Horse implements Comparable<Horse> {
     private String name;
