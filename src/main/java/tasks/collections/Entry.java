@@ -1,7 +1,7 @@
 package tasks.collections;
 
 class Entry<T> {
-    private T data;
+    private final T data;
     private Entry<T> next;
     private Entry<T> previous;
 
