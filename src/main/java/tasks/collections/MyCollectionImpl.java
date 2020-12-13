@@ -1,15 +1,26 @@
 package tasks.collections;
 
-import java.util.NoSuchElementException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MyCollectionImpl<T> implements MyCollection<T> {
+
+    Logger logger;
+
+    public MyCollectionImpl() {
+        this.logger = Logger.getLogger(MyCollectionImpl.class.getName());
+    }
 
     private Entry<T> top;
     private int size;
 
 
     public void add(T t) {
-        checkForNull(t);
+        if (t == null) {
+            logger.log(Level.WARNING, "Got null at " + new Date());
+            return;
+        }
         Entry<T> entry = new Entry<>(t);
         bindEntries(entry, top);
         top = entry;
@@ -18,7 +29,10 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
 
     @Override
     public void add(int index, T t) {
-        checkForNull(t);
+        if (t == null) {
+            logger.log(Level.WARNING, "Got null at " + new Date());
+            return;
+        }
         Entry<T> newEntry = new Entry<>(t);
         Entry<T> current = iterate(index);
         bindEntries(current.getPrevious(), newEntry);
@@ -27,15 +41,16 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
     }
 
 
-    public void remove(T t) throws NoSuchElementException {
+    public boolean remove(T t) {
         var current = find(t);
         if (current == null) {
-            throw new NoSuchElementException();
+            return false;
         }
         var previous = current.getPrevious();
         var next = current.getNext();
         bindEntries(previous, next);
         size--;
+        return true;
     }
 
     public boolean contains(T t) {
@@ -51,7 +66,6 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
             return iterate(i).getData();
         }
         throw new IndexOutOfBoundsException(i + " not in bounds for size " + size);
-
     }
 
     public int size() {
@@ -115,9 +129,4 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
         return stringBuilder.toString();
     }
 
-    private void checkForNull(T t) {
-        if (t == null) {
-            throw new IllegalArgumentException("Don't want to contain null");
-        }
-    }
 }

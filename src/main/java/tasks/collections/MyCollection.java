@@ -5,7 +5,7 @@ public interface MyCollection<T> {
 
     void add(int index, T t);
 
-    void remove(T t);
+    boolean remove(T t);
 
     boolean contains(T t);
 

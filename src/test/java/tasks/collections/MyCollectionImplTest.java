@@ -55,10 +55,6 @@ class MyCollectionImplTest {
         assertFalse(linkedList.contains(removeString));
     }
     @Test
-    public void removeException(){
-        assertThrows(NoSuchElementException.class,()->linkedList.remove(testString));
-    }
-    @Test
     public void removeTop(){
         assertDoesNotThrow(()->linkedList.remove(testString+9));
     }
