@@ -5,29 +5,29 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class CustomClassLoader extends ClassLoader{
+public class CustomClassLoader extends ClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] b = loadClassFromFile(name);
-        return defineClass(name,b,0,b.length);
+        return defineClass(name, b, 0, b.length);
     }
 
     private byte[] loadClassFromFile(String name) {
         InputStream inputStream = getClass().getClassLoader()
-                .getResourceAsStream(name.replace('.', File.separatorChar)+".class");
+                .getResourceAsStream(name.replace('.', File.separatorChar) + ".class");
         byte[] buffer;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        int nextValue=0;
+        int nextValue;
         try {
             assert inputStream != null;
-            while ((nextValue=inputStream.read())!=-1){
+            while ((nextValue = inputStream.read()) != -1) {
                 stream.write(nextValue);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        buffer=stream.toByteArray();
+        buffer = stream.toByteArray();
         return buffer;
     }
 }
