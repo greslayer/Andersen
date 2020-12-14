@@ -19,38 +19,42 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
     public void add(T t) {
         if (t == null) {
             logger.log(Level.WARNING, "Got null at " + new Date());
-            return;
+
+        } else {
+            Entry<T> entry = new Entry<>(t);
+            bindEntries(entry, top);
+            top = entry;
+            size++;
         }
-        Entry<T> entry = new Entry<>(t);
-        bindEntries(entry, top);
-        top = entry;
-        size++;
     }
 
     @Override
     public void add(int index, T t) {
         if (t == null) {
             logger.log(Level.WARNING, "Got null at " + new Date());
-            return;
+        } else {
+            Entry<T> newEntry = new Entry<>(t);
+            Entry<T> current = iterate(index);
+            bindEntries(current.getPrevious(), newEntry);
+            bindEntries(newEntry, current);
+            size++;
         }
-        Entry<T> newEntry = new Entry<>(t);
-        Entry<T> current = iterate(index);
-        bindEntries(current.getPrevious(), newEntry);
-        bindEntries(newEntry, current);
-        size++;
     }
 
 
     public boolean remove(T t) {
         var current = find(t);
+        boolean result;
         if (current == null) {
-            return false;
+            result = false;
+        } else {
+            result = true;
+            var previous = current.getPrevious();
+            var next = current.getNext();
+            bindEntries(previous, next);
+            size--;
         }
-        var previous = current.getPrevious();
-        var next = current.getNext();
-        bindEntries(previous, next);
-        size--;
-        return true;
+        return result;
     }
 
     public boolean contains(T t) {
