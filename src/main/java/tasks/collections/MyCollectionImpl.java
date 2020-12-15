@@ -1,25 +1,24 @@
 package tasks.collections;
 
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class MyCollectionImpl<T> implements MyCollection<T> {
 
     Logger logger;
-
-    public MyCollectionImpl() {
-        this.logger = Logger.getLogger(MyCollectionImpl.class.getName());
-    }
-
     private Entry<T> top;
     private int size;
 
+    public MyCollectionImpl() {
+        this.logger = LoggerFactory.getLogger(MyCollectionImpl.class);
+    }
 
     public void add(T t) {
         if (t == null) {
-            logger.log(Level.WARNING, "Got null at " + new Date());
-
+            logger.info("Got null as argument at " + new Date());
         } else {
             Entry<T> entry = new Entry<>(t);
             bindEntries(entry, top);
@@ -31,7 +30,7 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
     @Override
     public void add(int index, T t) {
         if (t == null) {
-            logger.log(Level.WARNING, "Got null at " + new Date());
+            logger.info("Got null as argument at " + new Date());
         } else {
             Entry<T> newEntry = new Entry<>(t);
             Entry<T> current = iterate(index);
@@ -40,7 +39,6 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
             size++;
         }
     }
-
 
     public boolean remove(T t) {
         var current = find(t);
@@ -91,7 +89,6 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
 
     }
 
-
     private Entry<T> find(T t) {
 
         Entry<T> current = top;
@@ -132,5 +129,4 @@ public class MyCollectionImpl<T> implements MyCollection<T> {
         stringBuilder.append(entry.getNext().getData()).append("]");
         return stringBuilder.toString();
     }
-
 }

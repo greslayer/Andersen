@@ -10,7 +10,6 @@ public class Hippodrome {
     private final List<Horse> horses = new ArrayList<>();
     CyclicBarrier cyclicBarrier = new CyclicBarrier(4);
 
-
     public static void main(String[] args) {
         game = new Hippodrome();
         Horse bojack = new Horse("Bojack", 3, 0, game.cyclicBarrier);

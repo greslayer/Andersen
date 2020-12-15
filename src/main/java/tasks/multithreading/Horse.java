@@ -7,7 +7,7 @@ public class Horse implements Comparable<Horse>, Runnable {
     private String name;
     private double speed;
     private double distance;
-    private CyclicBarrier cyclicBarrier;
+    private final CyclicBarrier cyclicBarrier;
 
     public Horse(String name, double speed, double distance, CyclicBarrier cyclicBarrier) {
         this.name = name;
@@ -27,7 +27,6 @@ public class Horse implements Comparable<Horse>, Runnable {
             }
         }
     }
-
 
     public void print() {
         for (int i = 0; i < Math.round(distance); i++) {
