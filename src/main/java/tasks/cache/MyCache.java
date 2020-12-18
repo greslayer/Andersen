@@ -22,12 +22,11 @@ public class MyCache<T, V> implements Database<T, V> {
         V value;
         if (cache.containsKey(key)) {
             lastUsed.remove(key);
-            lastUsed.add(key);
             value = cache.get(key);
         } else {
-            lastUsed.add(key);
             value = getFromDB(key);
         }
+        lastUsed.add(key);
         return value;
     }
 
