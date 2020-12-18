@@ -3,7 +3,6 @@ package tasks.cache;
 import java.util.*;
 
 public class MyCache<T, V> implements Database<T, V> {
-    Deque<String> strings = new ArrayDeque<>();
     Database<T, V> slowDatabase;
     Map<T, V> cache;
     private final LinkedHashSet<T> lastUsed;
