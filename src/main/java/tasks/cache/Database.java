@@ -1,5 +1,5 @@
 package tasks.cache;
 
-public interface Database {
-    String get(String key);
+public interface Database<T,V> {
+    V get(T key);
 }

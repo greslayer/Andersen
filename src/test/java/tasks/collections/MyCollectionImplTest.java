@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class MyCollectionImplTest {
-
     MyCollection<String> linkedList;
     String testString = "Test String ";
 

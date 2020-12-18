@@ -2,19 +2,16 @@ package tasks.cache;
 
 import java.util.HashMap;
 
-public class SlowDatabase implements Database {
-    private final HashMap<String, String> map;
+public class SlowDatabase<T, V> implements Database<T, V> {
+    private final HashMap<T, V> map;
 
     public SlowDatabase() {
         map = new HashMap<>();
-        for (int i = 0; i < 50; i++) {
-            map.put("Key " + i, "Value " + i);
-        }
     }
 
-    public String get(String key) {
+    public V get(T key) {
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
