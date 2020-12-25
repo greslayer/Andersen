@@ -4,46 +4,30 @@ import java.util.*;
 
 public class MyCache<T, V> implements Database<T, V> {
     Database<T, V> slowDatabase;
-    Map<T, V> cache;
-    private final LinkedHashSet<T> lastUsed;
-    private int currentSize;
-    private final int maxSize;
+    LinkedHashMap<T, V> cache;
+
 
     public MyCache(SlowDatabase<T, V> slowDatabase, int maxSize) {
         this.slowDatabase = slowDatabase;
-        cache = new HashMap<>();
-        lastUsed = new LinkedHashSet<>();
-        currentSize = 0;
-        this.maxSize = maxSize;
+        cache = new LinkedHashMap<>(maxSize);
     }
 
     public V get(T key) {
         V value;
         if (cache.containsKey(key)) {
-            lastUsed.remove(key);
             value = cache.get(key);
+            cache.remove(key);
         } else {
             value = getFromDB(key);
         }
-        lastUsed.add(key);
+        cache.put(key, value);
         return value;
     }
 
     private V getFromDB(T key) {
         V value = slowDatabase.get(key);
-        adjustSize();
         cache.put(key, value);
-        currentSize++;
         return value;
-    }
-
-    private void adjustSize() {
-        if (currentSize >= maxSize) {
-            T toDelete = lastUsed.iterator().next();
-            cache.remove(toDelete);
-            lastUsed.remove(toDelete);
-            currentSize--;
-        }
     }
 
 
