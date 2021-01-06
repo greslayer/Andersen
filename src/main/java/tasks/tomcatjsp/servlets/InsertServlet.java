@@ -26,12 +26,11 @@ public class InsertServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer id = Integer.valueOf(request.getParameter("id"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String salary = request.getParameter("salary");
 
-        employeeDAO.save(new Employee(id, firstName, lastName, salary));
+        employeeDAO.saveEmployee(new Employee(firstName, lastName, salary));
         response.sendRedirect("list");
     }
 }

@@ -26,12 +26,12 @@ public class UpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer id = Integer.valueOf(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String salary = request.getParameter("salary");
 
-        employeeDAO.update(new Employee(id, firstName, lastName, salary));
+        employeeDAO.updateEmployee(new Employee(id,firstName, lastName, salary));
         response.sendRedirect("list");
     }
 }

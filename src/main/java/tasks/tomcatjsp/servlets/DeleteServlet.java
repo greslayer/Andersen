@@ -26,7 +26,7 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        employeeDAO.delete(id);
+        employeeDAO.deleteEmployeeById(id);
         response.sendRedirect("list");
     }
 }

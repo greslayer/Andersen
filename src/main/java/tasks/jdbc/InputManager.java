@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tasks.jdbc.operations.CRUDOperation;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class InputManager {
     @Autowired
     Map<String, CRUDOperation> operations;
     @Autowired
-    ConnectionPool pool;
+    DataSource pool;
 
     public void manage(String input, String[] args) {
         try (Connection connection = pool.getConnection()) {

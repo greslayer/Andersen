@@ -41,14 +41,7 @@
                 <c:if test="${employee != null}">
                     <input type="hidden" name="id" value="<c:out value='${employee.id}' />"/>
                 </c:if>
-                <tr>
-                    <th>ID:</th>
-                    <td>
-                        <input type="text" name="id" size="45"
-                               value="<c:out value='${employee.id}' />"
-                        />
-                    </td>
-                </tr>
+
                 <tr>
                     <th>First Name:</th>
                     <td>

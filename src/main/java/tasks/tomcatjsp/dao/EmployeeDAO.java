@@ -1,9 +1,12 @@
 package tasks.tomcatjsp.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tasks.tomcatjsp.model.Employee;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,26 +16,29 @@ import java.util.List;
 
 @Repository
 public class EmployeeDAO {
-    @Autowired
-    ConnectionPool pool;
+    final DataSource pool;
+    private final Logger logger = LoggerFactory.getLogger(EmployeeDAO.class);
 
-    public void save(Employee employee) {
+    public EmployeeDAO(DataSource pool) {
+        this.pool = pool;
+    }
+
+    public void saveEmployee(Employee employee) {
         int status = 0;
         try (Connection connection = pool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Employee values (?,?,?,?)"
+                    "INSERT INTO Employee(firstName,lastName,salary) values (?,?,?)"
             );
-            statement.setInt(1, employee.getId());
-            statement.setString(2, employee.getFirstName());
-            statement.setString(3, employee.getLastName());
-            statement.setString(4, employee.getSalary());
+            statement.setString(1, employee.getFirstName());
+            statement.setString(2, employee.getLastName());
+            statement.setString(3, employee.getSalary());
             status = statement.executeUpdate();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            logger.error("Exception while inserting Employee", throwables);
         }
     }
 
-    public int update(Employee employee) {
+    public int updateEmployee(Employee employee) {
         int status = 0;
         try (Connection connection = pool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -44,12 +50,12 @@ public class EmployeeDAO {
             statement.setInt(4, employee.getId());
             status = statement.executeUpdate();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            logger.error("Error while updating employee", throwables);
         }
         return status;
     }
 
-    public int delete(int id) {
+    public int deleteEmployeeById(int id) {
         int status = 0;
         try (Connection connection = pool.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -58,7 +64,7 @@ public class EmployeeDAO {
             statement.setInt(1, id);
             status = statement.executeUpdate();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            logger.error("Error while deleting Employee", throwables);
         }
         return status;
     }
@@ -78,7 +84,7 @@ public class EmployeeDAO {
                 employee.setSalary(resultSet.getString(4));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            logger.error("Error while looking for Employee by ID", throwables);
         }
         return employee;
     }
@@ -99,7 +105,7 @@ public class EmployeeDAO {
                 list.add(employee);
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            logger.error("Error while getting all Employees", throwables);
         }
         return list;
     }
