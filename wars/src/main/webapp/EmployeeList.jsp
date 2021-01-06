@@ -14,8 +14,6 @@
 <body>
 <center>
     <h1>
-        <a href="<c:url value="/list"/>">List all Employees</a>
-        &nbsp;&nbsp;&nbsp;
         <a href="<c:url value="/create"/>">Add new Employee</a>
     </h1>
 </center>
