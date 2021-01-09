@@ -6,10 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="wars" />
         <module name="jars" />
+        <module name="tomcat" />
         <module name="LinkedList" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jpa" target="10" />
+    </bytecodeTargetLevel>
   </component>
 </project>
