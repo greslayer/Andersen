@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>tomcat</module>
+        <module>jpa</module>
     </modules>
     <artifactId>wars</artifactId>
     <dependencies>
