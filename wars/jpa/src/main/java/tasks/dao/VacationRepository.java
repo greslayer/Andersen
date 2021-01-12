@@ -1,7 +1,31 @@
 package tasks.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 import tasks.model.Vacation;
 
-public interface VacationRepository extends CrudRepository<Vacation,Long>{
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Repository
+public class VacationRepository {
+    @PersistenceContext
+    final private EntityManager entityManager;
+
+    public VacationRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public Vacation findById(int id) {
+        return entityManager.unwrap(Session.class).get(Vacation.class, id);
+    }
+
+    public void save(Vacation vacation) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Transaction transaction = currentSession.beginTransaction();
+        currentSession.save(vacation);
+        transaction.commit();
+        currentSession.close();
+    }
 }
