@@ -1,6 +1,8 @@
 package tasks.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "employee")
 public class Employee {
@@ -10,6 +12,17 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String salary;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<Vacation> vacations = new HashSet<>();
+
+
+    public Set<Vacation> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(Set<Vacation> vacations) {
+        this.vacations = vacations;
+    }
 
     public Long getId() {
         return id;

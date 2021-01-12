@@ -67,6 +67,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>
+                        <c:if test="${employee != null}">
+                        <input type="date" name="fromDate" value=""/>
+                    </th>
+                    <td>
+
+                            <input type="date" name="toDate" value=""/>
+                        </c:if>
+                    </td>
+                </tr>
+                <c:forEach items="${employee.vacations}" var="vacation">
+                    <tr>
+                        <td>${vacation.fromDate}</td>
+                        <td>${vacation.toDate}</td>
+                    </tr>
+                </c:forEach>
+                <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="Save"/>
                     </td>
