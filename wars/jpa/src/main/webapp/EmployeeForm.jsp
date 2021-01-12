@@ -6,20 +6,20 @@
   Time: 16:06
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<center>
+<div style="text-align: center;">
     <h1>
         <a href="<c:url value="/create"/>">Add New Employee</a>
         &nbsp;&nbsp;&nbsp;
         <a href="<c:url value="/list"/>">List All Employees</a>
 
     </h1>
-</center>
+</div>
 <div align="center">
     <c:if test="${employee != null}">
     <form action="update" method="post">
