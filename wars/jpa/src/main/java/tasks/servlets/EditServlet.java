@@ -28,7 +28,7 @@ public class EditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeRepository.findById(id).orElseGet(Employee::new);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("EmployeeForm.jsp");
         request.setAttribute("employee", employee);
         requestDispatcher.forward(request, response);

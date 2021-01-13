@@ -1,0 +1,16 @@
+db:
+  url: jdbc:mysql://localhost:3306/jdbcemployee
+  user: root
+  password: root
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true

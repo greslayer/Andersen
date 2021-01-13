@@ -12,6 +12,7 @@
     <modules>
         <module>tomcat</module>
         <module>jpa</module>
+        <module>rest</module>
     </modules>
     <artifactId>wars</artifactId>
     <dependencies>

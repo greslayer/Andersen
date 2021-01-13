@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "db.url",
+      "type": "java.lang.String",
+      "description": "Description for db.url."
+    },
+    {
+      "name": "db.user",
+      "type": "java.lang.String",
+      "description": "Description for db.user."
+    },
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "description": "Description for db.password."
+    },
+    {
+      "name": "Idb.url",
+      "type": "java.lang.String",
+      "description": "Description for Idb.url."
+    }
+  ] }
