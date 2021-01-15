@@ -8,19 +8,19 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
-    final YAMLConfig yamlConfig;
+    final YAMLProperties yamlProperties;
 
-    public DataSourceConfig(YAMLConfig yamlConfig) {
-        this.yamlConfig = yamlConfig;
+    public DataSourceConfig(YAMLProperties yamlProperties) {
+        this.yamlProperties = yamlProperties;
     }
 
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
-        dataSourceBuilder.url(yamlConfig.getUrl());
-        dataSourceBuilder.username(yamlConfig.getUser());
-        dataSourceBuilder.password(yamlConfig.getPassword());
+        dataSourceBuilder.url(yamlProperties.getUrl());
+        dataSourceBuilder.username(yamlProperties.getUser());
+        dataSourceBuilder.password(yamlProperties.getPassword());
         return dataSourceBuilder.build();
     }
 }

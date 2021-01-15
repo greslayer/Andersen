@@ -1,16 +1,15 @@
-package tasks.configuration;
+package tasks.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@ConfigurationProperties(prefix = "db")
-@EnableConfigurationProperties
 @Configuration
-public class YAMLConfig {
+@ConfigurationProperties(prefix = "db")
+public class YAMLProperties {
     private String url;
-    private String user;
     private String password;
+    private String user;
 
     public String getUrl() {
         return url;
@@ -18,14 +17,6 @@ public class YAMLConfig {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public String getPassword() {
@@ -36,4 +27,11 @@ public class YAMLConfig {
         this.password = password;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 }

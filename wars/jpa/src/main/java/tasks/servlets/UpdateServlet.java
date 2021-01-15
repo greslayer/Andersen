@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import tasks.dao.EmployeeRepository;
-import tasks.dao.VacationRepository;
+import tasks.dao.VacationRepositoryJPA;
 import tasks.model.Employee;
 import tasks.model.Vacation;
 
@@ -26,7 +26,7 @@ public class UpdateServlet extends HttpServlet {
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
-    VacationRepository vacationRepository;
+    VacationRepositoryJPA vacationRepositoryJPA;
 
     public void init(ServletConfig config) throws ServletException {
         logger = LoggerFactory.getLogger(UpdateServlet.class);
@@ -54,7 +54,7 @@ public class UpdateServlet extends HttpServlet {
         }
 
         Employee employee = new Employee(id, firstName, lastName, salary);
-        vacationRepository.save(new Vacation(employee, from, to));
+        vacationRepositoryJPA.save(new Vacation(employee, from, to));
         employeeRepository.save(employee);
         response.sendRedirect("list");
     }

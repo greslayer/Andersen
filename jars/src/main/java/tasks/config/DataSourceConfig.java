@@ -2,25 +2,27 @@ package tasks.config;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
 @Configuration
+@ComponentScan
 public class DataSourceConfig {
-    final YAMLConfig yamlConfig;
+    final YAMLProperties yamlProperties;
 
-    public DataSourceConfig(YAMLConfig yamlConfig) {
-        this.yamlConfig = yamlConfig;
+    public DataSourceConfig(YAMLProperties yamlProperties) {
+        this.yamlProperties = yamlProperties;
     }
 
     @Bean
     public DataSource getDataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
-        dataSourceBuilder.url(yamlConfig.getUrl());
-        dataSourceBuilder.username(yamlConfig.getUser());
-        dataSourceBuilder.password(yamlConfig.getPassword());
+        dataSourceBuilder.url(yamlProperties.getUrl());
+        dataSourceBuilder.username(yamlProperties.getUser());
+        dataSourceBuilder.password(yamlProperties.getPassword());
         return dataSourceBuilder.build();
     }
 }

@@ -4,7 +4,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 @Entity
-public class Employee extends RepresentationModel<Employee>{
+public class Employee{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
