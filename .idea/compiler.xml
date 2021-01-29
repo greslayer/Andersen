@@ -15,7 +15,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="kafka" target="10" />
       <module name="soap" target="10" />
+      <module name="springsoap" target="10" />
     </bytecodeTargetLevel>
   </component>
 </project>

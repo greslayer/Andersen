@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import tasks.dao.EmployeeRepository;
-import tasks.dao.VacationRepositoryJPA;
 import tasks.model.Employee;
 import tasks.model.Vacation;
+import tasks.services.VacationService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -24,9 +24,10 @@ import java.util.Date;
 public class UpdateServlet extends HttpServlet {
     private Logger logger;
     @Autowired
-    EmployeeRepository employeeRepository;
+    VacationService vacationService;
     @Autowired
-    VacationRepositoryJPA vacationRepositoryJPA;
+    EmployeeRepository employeeRepository;
+
 
     public void init(ServletConfig config) throws ServletException {
         logger = LoggerFactory.getLogger(UpdateServlet.class);
@@ -53,8 +54,14 @@ public class UpdateServlet extends HttpServlet {
             logger.error("Error while parsing dates, set today's date", e);
         }
 
-        Employee employee = new Employee(id, firstName, lastName, salary);
-        vacationRepositoryJPA.save(new Vacation(employee, from, to));
+        Employee employee = employeeRepository.findById(id).orElse(new Employee(id, firstName, lastName, salary));
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setSalary(salary);
+
+        Vacation vacation = new Vacation(employee, from, to);
+
+        vacationService.processVacation(employee, vacation);
         employeeRepository.save(employee);
         response.sendRedirect("list");
     }
